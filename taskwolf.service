@@ -1,0 +1,8 @@
+[Unit]
+Description=Taskwolf
+
+[Service]
+ExecStart=java -jar /etc/taskwolf/service.jar
+
+[Install]
+WantedBy=multi-user.target

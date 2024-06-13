@@ -1,0 +1,30 @@
+package net.taskwolf.server.service.command;
+
+import lombok.Getter;
+import lombok.experimental.Accessors;
+import net.taskwolf.server.service.configuration.Configuration;
+import org.json.JSONObject;
+
+@Getter
+@Accessors(fluent = true)
+public final class CommandConfiguration extends Configuration {
+  private static final String CONFIGURATION_PATH = "command/command.json";
+
+  public static CommandConfiguration createAndLoad() throws Exception {
+    var configuration = new CommandConfiguration(CONFIGURATION_PATH);
+    if (!configuration.exists()) {
+      return configuration;
+    }
+    configuration.load();
+    return configuration;
+  }
+
+  private CommandConfiguration(String path) {
+    super(path);
+  }
+
+  @Override
+  protected void deserialize(JSONObject json) {
+
+  }
+}

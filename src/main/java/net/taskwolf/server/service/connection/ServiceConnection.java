@@ -1,0 +1,56 @@
+package net.taskwolf.server.service.connection;
+
+import java.net.URI;
+
+import net.taskwolf.server.service.command.ServiceCommand;
+import net.taskwolf.server.service.file.ServiceFile;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONObject;
+
+public final class ServiceConnection extends WebSocketClient {
+  private static final String URL_FORMAT =
+    "wss://api.taskwolf.net/device/connect/?token=%s&device=%s";
+
+  public static ServiceConnection create(String token, String device) throws Exception {
+    return new ServiceConnection(new URI(String.format(URL_FORMAT, token, device)));
+  }
+
+  private ServiceConnection(URI address) {
+    super(address);
+  }
+
+  @Override
+  public void onOpen(ServerHandshake handshakedata) {
+
+  }
+
+  @Override
+  public void onMessage(String message) {
+    var json = new JSONObject(message);
+    var type = json.getString("type");
+     if (type.equalsIgnoreCase("COMMAND")) {
+       send(ServiceCommand.create(json.getString("commandId"),
+         json.getString("command")).execute());
+    } else if (type.equalsIgnoreCase("FILE_STORAGE")) {
+       ServiceFile.create(json.getString("filePath"))
+         .store(json.getString("storeId"));
+    } else if (type.equalsIgnoreCase("FILE_INFO")) {
+       ServiceFile.create(json.getString("filePath"))
+         .store(json.getString("infoId"));
+    } else if (type.equalsIgnoreCase("FILE_DELETE")) {
+       ServiceFile.create(json.getString("filePath"))
+         .store(json.getString("deleteId"));
+    }
+  }
+
+  @Override
+  public void onClose(int code, String reason, boolean remote) {
+    //TODO: IMPLEMENT RECONNECT SCHEDULE
+  }
+
+  @Override
+  public void onError(Exception exception) {
+
+  }
+}

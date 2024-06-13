@@ -4,8 +4,8 @@ plugins {
 
 group = "net.taskwolf"
 version = "1.0.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_21
-java.targetCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
   mavenCentral()
@@ -32,4 +32,14 @@ dependencies {
 
 tasks.test {
   useJUnitPlatform()
+}
+
+tasks.jar {
+  manifest.attributes["Main-Class"] = "net.taskwolf.server.service.ServerServiceApplication"
+  val dependencies = configurations
+    .runtimeClasspath
+    .get()
+    .map(::zipTree)
+  from(dependencies)
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

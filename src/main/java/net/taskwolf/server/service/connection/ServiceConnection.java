@@ -29,18 +29,26 @@ public final class ServiceConnection extends WebSocketClient {
   public void onMessage(String message) {
     var json = new JSONObject(message);
     var type = json.getString("type");
-     if (type.equalsIgnoreCase("COMMAND")) {
-       send(ServiceCommand.create(json.getString("commandId"),
-         json.getString("command")).execute());
+    try {
+      processExecution(json, type);
+    } catch (Exception exception) {
+      exception.printStackTrace();
+    }
+  }
+
+  private void processExecution(JSONObject json, String type) throws Exception {
+    if (type.equalsIgnoreCase("COMMAND")) {
+      send(ServiceCommand.create(json.getString("commandId"),
+        json.getString("command")).execute());
     } else if (type.equalsIgnoreCase("FILE_STORAGE")) {
-       ServiceFile.create(json.getString("filePath"))
-         .store(json.getString("storeId"));
+      ServiceFile.create(json.getString("filePath"))
+        .store(json.getString("storeId"));
     } else if (type.equalsIgnoreCase("FILE_INFO")) {
-       ServiceFile.create(json.getString("filePath"))
-         .store(json.getString("infoId"));
+      ServiceFile.create(json.getString("filePath"))
+        .info(json.getString("infoId"));
     } else if (type.equalsIgnoreCase("FILE_DELETE")) {
-       ServiceFile.create(json.getString("filePath"))
-         .store(json.getString("deleteId"));
+      ServiceFile.create(json.getString("filePath"))
+        .delete(json.getString("deleteId"));
     }
   }
 

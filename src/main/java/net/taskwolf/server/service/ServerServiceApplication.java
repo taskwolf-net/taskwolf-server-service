@@ -17,5 +17,7 @@ public class ServerServiceApplication {
     }
     var connection = ServiceConnection.create(credentialConfiguration.token(),
       credentialConfiguration.device());
+    connection.connect();
+    System.out.println("The Taskwolf service has been successfully launched");
   }
 }

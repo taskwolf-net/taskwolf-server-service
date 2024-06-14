@@ -18,11 +18,30 @@ public abstract class Configuration {
   }
 
   /**
+   * This function fills a configuration file with content
+   * @return The JSON object that is to be saved
+   */
+  protected JSONObject serialize() {
+    return new JSONObject();
+  }
+
+  /**
+   * Is used to write the serialized content to the file
+   * @throws Exception
+   */
+  public void save() throws Exception  {
+    FileUtils.writeStringToFile(new File(absolutePath()), serialize().toString(),
+      Charset.defaultCharset());
+  }
+
+  /**
    * This function builds the actual objects from the content of the
    * configuration file (json), which can be used later on
    * @param json
    */
-  protected abstract void deserialize(JSONObject json);
+  protected void deserialize(JSONObject json) {
+
+  }
 
   /**
    * Used to load the json configuration file
@@ -31,6 +50,23 @@ public abstract class Configuration {
   public void load() throws Exception  {
     deserialize(new JSONObject(FileUtils.readFileToString(
       new File(absolutePath()), Charset.defaultCharset())));
+  }
+
+  /**
+   * Is used to create an empty configuration file
+   */
+  public void create() throws Exception {
+    var file = new File(absolutePath());
+    file.getParentFile().mkdirs();
+    file.createNewFile();
+  }
+
+  /**
+   * Is used to delete a configuration file
+   */
+  public void delete() throws Exception {
+    var file = new File(absolutePath());
+    file.delete();
   }
 
   /**

@@ -12,12 +12,22 @@ public final class ServiceConnection extends WebSocketClient {
   private static final String URL_FORMAT =
     "wss://api.taskwolf.net/device/connect/?token=%s&device=%s";
 
-  public static ServiceConnection create(String token, String device) throws Exception {
-    return new ServiceConnection(new URI(String.format(URL_FORMAT, token, device)));
+  public static ServiceConnection create(
+    String token, String device
+  ) throws Exception {
+    return new ServiceConnection(new URI(String.format(URL_FORMAT, token, device)),
+      token, device);
   }
 
-  private ServiceConnection(URI address) {
+  private final String token;
+  private final String device;
+
+  private ServiceConnection(
+    URI address, String token, String device
+  ) {
     super(address);
+    this.token = token;
+    this.device = device;
   }
 
   @Override
@@ -54,7 +64,14 @@ public final class ServiceConnection extends WebSocketClient {
 
   @Override
   public void onClose(int code, String reason, boolean remote) {
-    //TODO: IMPLEMENT RECONNECT SCHEDULE
+    try {
+      System.out.println("The connection to Taskwolf has been interrupted. " +
+        "An attempt will be made to re-establish the connection in 10 seconds");
+      Thread.sleep(10000);
+      ServiceConnection.create(token, device).connect();
+    } catch (Exception exception) {
+      exception.printStackTrace();
+    }
   }
 
   @Override

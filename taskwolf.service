@@ -2,7 +2,7 @@
 Description=Taskwolf
 
 [Service]
-ExecStart=java -jar /etc/taskwolf/service.jar
+ExecStart=java -jar /usr/local/taskwolf/bin/taskwolf-service.jar
 
 [Install]
 WantedBy=multi-user.target

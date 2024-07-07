@@ -19,8 +19,6 @@ public class ServerServiceApplication {
       credentialConfiguration.device());
     connection.connect();
     System.out.println("The Taskwolf service has been successfully launched");
-    while (true) {
-
-    }
+    Thread.currentThread().join();
   }
 }

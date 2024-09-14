@@ -1,16 +1,16 @@
-package net.taskwolf.server.service.connection;
+package com.dulno.server.service.connection;
 
 import java.net.URI;
 
-import net.taskwolf.server.service.command.ServiceCommand;
-import net.taskwolf.server.service.file.ServiceFile;
+import com.dulno.server.service.command.ServiceCommand;
+import com.dulno.server.service.file.ServiceFile;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONObject;
 
 public final class ServiceConnection extends WebSocketClient {
   private static final String URL_FORMAT =
-    "wss://api.taskwolf.net/device/connect/?token=%s&device=%s";
+    "wss://api.dulno.com/device/connect/?token=%s&device=%s";
 
   public static ServiceConnection create(
     String token, String device
@@ -65,7 +65,7 @@ public final class ServiceConnection extends WebSocketClient {
   @Override
   public void onClose(int code, String reason, boolean remote) {
     try {
-      System.out.println("The connection to Taskwolf has been interrupted. " +
+      System.out.println("The connection to Dulno has been interrupted. " +
         "An attempt will be made to re-establish the connection in 10 seconds");
       Thread.sleep(10000);
       ServiceConnection.create(token, device).connect();

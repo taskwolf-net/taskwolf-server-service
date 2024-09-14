@@ -1,8 +1,8 @@
-package net.taskwolf.server.service.whitelist;
+package com.dulno.server.service.whitelist;
 
+import com.dulno.server.service.configuration.Configuration;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import net.taskwolf.server.service.configuration.Configuration;
 import org.json.JSONObject;
 
 @Getter

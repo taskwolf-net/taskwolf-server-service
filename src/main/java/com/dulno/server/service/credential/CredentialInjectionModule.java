@@ -1,4 +1,4 @@
-package net.taskwolf.server.service.credential;
+package com.dulno.server.service.credential;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;

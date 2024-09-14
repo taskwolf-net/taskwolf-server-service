@@ -1,10 +1,10 @@
-package net.taskwolf.server.service;
+package com.dulno.server.service;
 
 import com.google.inject.AbstractModule;
 import lombok.RequiredArgsConstructor;
-import net.taskwolf.server.service.command.CommandInjectionModule;
-import net.taskwolf.server.service.credential.CredentialInjectionModule;
-import net.taskwolf.server.service.file.FileInjectionModule;
+import com.dulno.server.service.command.CommandInjectionModule;
+import com.dulno.server.service.credential.CredentialInjectionModule;
+import com.dulno.server.service.file.FileInjectionModule;
 
 @RequiredArgsConstructor(staticName = "create")
 public final class ServerServiceInjectionModule extends AbstractModule {

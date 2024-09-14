@@ -1,4 +1,4 @@
-package net.taskwolf.server.service.command;
+package com.dulno.server.service.command;
 
 import lombok.RequiredArgsConstructor;
 

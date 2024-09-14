@@ -2,7 +2,7 @@ plugins {
   id("java")
 }
 
-group = "net.taskwolf"
+group = "com.dulno"
 version = "1.0.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11
@@ -35,7 +35,7 @@ tasks.test {
 }
 
 tasks.jar {
-  manifest.attributes["Main-Class"] = "net.taskwolf.server.service.ServerServiceApplication"
+  manifest.attributes["Main-Class"] = "com.dulno.server.service.ServerServiceApplication"
   val dependencies = configurations
     .runtimeClasspath
     .get()

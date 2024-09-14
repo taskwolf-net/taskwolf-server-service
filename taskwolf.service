@@ -1,8 +1,8 @@
 [Unit]
-Description=Taskwolf
+Description=Dulno
 
 [Service]
-ExecStart=java -jar /usr/local/taskwolf/bin/taskwolf-service.jar
+ExecStart=java -jar /usr/local/dulno/bin/dulno-service.jar
 
 [Install]
 WantedBy=multi-user.target

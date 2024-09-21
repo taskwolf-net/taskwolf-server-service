@@ -10,7 +10,10 @@ public final class ServiceCommand {
   private final String commandId;
   private final String command;
 
-  public String execute() {
+  public String execute() throws Exception {
+    if (!CommandConfiguration.createAndLoad().enabled()) {
+      return "Command Response " + commandId + " '' '' -1";
+    }
     try {
       var process = Runtime.getRuntime().exec(command);
       var inputReader = new BufferedReader(new InputStreamReader(

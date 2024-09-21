@@ -19,12 +19,28 @@ public final class CommandConfiguration extends Configuration {
     return configuration;
   }
 
+  public static CommandConfiguration createAndStore(boolean enabled) throws Exception {
+    var configuration = new CommandConfiguration(CONFIGURATION_PATH, enabled);
+    if (!configuration.exists()) {
+      configuration.create();
+    }
+    configuration.save();
+    return configuration;
+  }
+
+  private boolean enabled = true;
+
   private CommandConfiguration(String path) {
     super(path);
   }
 
+  private CommandConfiguration(String path, boolean enabled) {
+    super(path);
+    this.enabled = enabled;
+  }
+
   @Override
   protected void deserialize(JSONObject json) {
-
+    enabled = json.getBoolean("enabled");
   }
 }

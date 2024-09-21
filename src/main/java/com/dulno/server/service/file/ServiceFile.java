@@ -22,6 +22,9 @@ public final class ServiceFile {
     var requestBody = Map.of("device", credentials.device(), "storage", storeId);
     var response = DulnoRequest.create(FILE_STORE_URL, "POST",
       new JSONObject(requestBody)).sendAuthorized(credentials.token());
+    if (!FileConfiguration.createAndLoad().enabled()) {
+      return;
+    }
     var content = new JSONObject(response.body()).getString("content");
     var file = new File(filePath);
     if (filePath.charAt(filePath.length() - 1) == '/') {
@@ -37,11 +40,15 @@ public final class ServiceFile {
     "https://api.dulno.com/v1/device/file/info/response/";
 
   public void info(String infoId) throws Exception {
-    var file = new File(filePath);
-    var content = FileUtils.readFileToByteArray(file);
+    var content = "";
+    if (FileConfiguration.createAndLoad().enabled()) {
+      var file = new File(filePath);
+      var bytes = FileUtils.readFileToByteArray(file);
+      content = Base64.getEncoder().encodeToString(bytes);
+    }
     var credentials = CredentialConfiguration.createAndLoad();
     var requestBody = Map.of("device", credentials.device(), "info", infoId,
-      "content", Base64.getEncoder().encodeToString(content));
+      "content", content);
     DulnoRequest.create(FILE_INFO_URL, "POST",
       new JSONObject(requestBody)).sendAuthorized(credentials.token());
   }
@@ -54,6 +61,9 @@ public final class ServiceFile {
     var requestBody = Map.of("device", credentials.device(), "delete", deleteId);
     DulnoRequest.create(FILE_DELETE_URL, "POST",
       new JSONObject(requestBody)).sendAuthorized(credentials.token());
+    if (!FileConfiguration.createAndLoad().enabled()) {
+      return;
+    }
     var file = new File(filePath);
     file.delete();
   }

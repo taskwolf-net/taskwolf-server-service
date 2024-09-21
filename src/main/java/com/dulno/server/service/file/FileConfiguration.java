@@ -19,12 +19,28 @@ public final class FileConfiguration extends Configuration {
     return configuration;
   }
 
+  public static FileConfiguration createAndStore(boolean enabled) throws Exception {
+    var configuration = new FileConfiguration(CONFIGURATION_PATH, enabled);
+    if (!configuration.exists()) {
+      configuration.create();
+    }
+    configuration.save();
+    return configuration;
+  }
+
+  private boolean enabled = true;
+
   private FileConfiguration(String path) {
     super(path);
   }
 
+  private FileConfiguration(String path, boolean enabled) {
+    super(path);
+    this.enabled = enabled;
+  }
+
   @Override
   protected void deserialize(JSONObject json) {
-
+    enabled = json.getBoolean("enabled");
   }
 }

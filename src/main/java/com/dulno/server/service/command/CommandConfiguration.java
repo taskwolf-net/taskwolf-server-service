@@ -40,6 +40,13 @@ public final class CommandConfiguration extends Configuration {
   }
 
   @Override
+  protected JSONObject serialize() {
+    var content = new JSONObject();
+    content.put("enabled", enabled);
+    return content;
+  }
+
+  @Override
   protected void deserialize(JSONObject json) {
     enabled = json.getBoolean("enabled");
   }

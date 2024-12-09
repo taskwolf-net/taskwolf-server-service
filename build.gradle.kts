@@ -49,7 +49,7 @@ dependencies {
   implementation("org.json:json:20240303")
   implementation("commons-io:commons-io:2.16.1")
 
-  implementation("org.java-websocket:Java-WebSocket:1.5.6")
+  implementation("org.java-websocket:Java-WebSocket:1.5.7")
 }
 
 tasks.test {

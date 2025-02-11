@@ -46,7 +46,7 @@ dependencies {
   testImplementation("org.projectlombok:lombok:1.18.36")
   testAnnotationProcessor("org.projectlombok:lombok:1.18.36")
 
-  implementation("org.json:json:20240303")
+  implementation("org.json:json:20250107")
   implementation("commons-io:commons-io:2.18.0")
 
   implementation("org.java-websocket:Java-WebSocket:1.6.0")

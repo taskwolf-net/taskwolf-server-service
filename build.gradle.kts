@@ -1,11 +1,20 @@
 plugins {
   id("java")
+  id("maven-publish")
 }
 
 group = "net.taskwolf"
 version = "1.0.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11
+
+publishing {
+  publications {
+    create<MavenPublication>("library") {
+      from(components["java"])
+    }
+  }
+}
 
 repositories {
   mavenCentral()

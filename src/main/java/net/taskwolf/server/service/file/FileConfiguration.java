@@ -1,17 +1,17 @@
-package com.dulno.server.service.command;
+package net.taskwolf.server.service.file;
 
+import net.taskwolf.server.service.configuration.Configuration;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import com.dulno.server.service.configuration.Configuration;
 import org.json.JSONObject;
 
 @Getter
 @Accessors(fluent = true)
-public final class CommandConfiguration extends Configuration {
-  private static final String CONFIGURATION_PATH = "command/command.json";
+public final class FileConfiguration extends Configuration {
+  private static final String CONFIGURATION_PATH = "file/file.json";
 
-  public static CommandConfiguration createAndLoad() throws Exception {
-    var configuration = new CommandConfiguration(CONFIGURATION_PATH);
+  public static FileConfiguration createAndLoad() throws Exception {
+    var configuration = new FileConfiguration(CONFIGURATION_PATH);
     if (!configuration.exists()) {
       return configuration;
     }
@@ -19,8 +19,8 @@ public final class CommandConfiguration extends Configuration {
     return configuration;
   }
 
-  public static CommandConfiguration createAndStore(boolean enabled) throws Exception {
-    var configuration = new CommandConfiguration(CONFIGURATION_PATH, enabled);
+  public static FileConfiguration createAndStore(boolean enabled) throws Exception {
+    var configuration = new FileConfiguration(CONFIGURATION_PATH, enabled);
     if (!configuration.exists()) {
       configuration.create();
     }
@@ -30,11 +30,11 @@ public final class CommandConfiguration extends Configuration {
 
   private boolean enabled = true;
 
-  private CommandConfiguration(String path) {
+  private FileConfiguration(String path) {
     super(path);
   }
 
-  private CommandConfiguration(String path, boolean enabled) {
+  private FileConfiguration(String path, boolean enabled) {
     super(path);
     this.enabled = enabled;
   }

@@ -1,4 +1,4 @@
-package com.dulno.server.service.configuration;
+package net.taskwolf.server.service.configuration;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -78,6 +78,6 @@ public abstract class Configuration {
   }
 
   private String absolutePath() {
-    return "/usr/local/dulno/" + path;
+    return "/usr/local/taskwolf/" + path;
   }
 }

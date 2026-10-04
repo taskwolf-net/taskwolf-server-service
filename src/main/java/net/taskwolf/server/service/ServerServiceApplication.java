@@ -1,8 +1,8 @@
-package com.dulno.server.service;
+package net.taskwolf.server.service;
 
 import com.google.inject.Guice;
-import com.dulno.server.service.connection.ServiceConnection;
-import com.dulno.server.service.credential.CredentialConfiguration;
+import net.taskwolf.server.service.connection.ServiceConnection;
+import net.taskwolf.server.service.credential.CredentialConfiguration;
 
 public class ServerServiceApplication {
   public static void main(String[] args) throws Exception {
@@ -12,13 +12,13 @@ public class ServerServiceApplication {
       credentialConfiguration.device() == null
     ) {
       System.out.println("No device credentials found. You probably haven't " +
-        "registered yet. Enter \"dulno login\" to make up for this.");
+        "registered yet. Enter \"taskwolf login\" to make up for this.");
       return;
     }
     var connection = ServiceConnection.create(credentialConfiguration.token(),
       credentialConfiguration.device());
     connection.connect();
-    System.out.println("The Dulno service has been successfully launched");
+    System.out.println("The Taskwolf service has been successfully launched");
     Thread.currentThread().join();
   }
 }

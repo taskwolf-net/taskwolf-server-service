@@ -1,4 +1,4 @@
-package com.dulno.server.service.file;
+package net.taskwolf.server.service.file;
 
 public class ServiceWorkspaceMonitor {
 }

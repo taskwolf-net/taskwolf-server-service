@@ -1,6 +1,6 @@
-package com.dulno.server.service.credential;
+package net.taskwolf.server.service.credential;
 
-import com.dulno.server.service.configuration.Configuration;
+import net.taskwolf.server.service.configuration.Configuration;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.json.JSONObject;

@@ -1,7 +1,7 @@
-package com.dulno.server.service.file;
+package net.taskwolf.server.service.file;
 
-import com.dulno.server.service.credential.CredentialConfiguration;
-import com.dulno.server.service.request.DulnoRequest;
+import net.taskwolf.server.service.credential.CredentialConfiguration;
+import net.taskwolf.server.service.request.TaskwolfRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
@@ -15,12 +15,12 @@ public final class ServiceFile {
   private final String filePath;
 
   private static final String FILE_STORE_URL =
-    "https://api.dulno.com/v1/device/file/storage/response/";
+    "https://api.taskwolf.net/v1/device/file/storage/response/";
 
   public void store(String storeId) throws Exception {
     var credentials = CredentialConfiguration.createAndLoad();
     var requestBody = Map.of("device", credentials.device(), "storage", storeId);
-    var response = DulnoRequest.create(FILE_STORE_URL, "POST",
+    var response = TaskwolfRequest.create(FILE_STORE_URL, "POST",
       new JSONObject(requestBody)).sendAuthorized(credentials.token());
     if (!FileConfiguration.createAndLoad().enabled()) {
       return;
@@ -37,7 +37,7 @@ public final class ServiceFile {
   }
 
   private static final String FILE_INFO_URL =
-    "https://api.dulno.com/v1/device/file/info/response/";
+    "https://api.taskwolf.net/v1/device/file/info/response/";
 
   public void info(String infoId) throws Exception {
     var content = "";
@@ -49,17 +49,17 @@ public final class ServiceFile {
     var credentials = CredentialConfiguration.createAndLoad();
     var requestBody = Map.of("device", credentials.device(), "info", infoId,
       "content", content);
-    DulnoRequest.create(FILE_INFO_URL, "POST",
+    TaskwolfRequest.create(FILE_INFO_URL, "POST",
       new JSONObject(requestBody)).sendAuthorized(credentials.token());
   }
 
   private static final String FILE_DELETE_URL =
-    "https://api.dulno.com/v1/device/file/delete/response/";
+    "https://api.taskwolf.net/v1/device/file/delete/response/";
 
   public void delete(String deleteId) throws Exception {
     var credentials = CredentialConfiguration.createAndLoad();
     var requestBody = Map.of("device", credentials.device(), "delete", deleteId);
-    DulnoRequest.create(FILE_DELETE_URL, "POST",
+    TaskwolfRequest.create(FILE_DELETE_URL, "POST",
       new JSONObject(requestBody)).sendAuthorized(credentials.token());
     if (!FileConfiguration.createAndLoad().enabled()) {
       return;
